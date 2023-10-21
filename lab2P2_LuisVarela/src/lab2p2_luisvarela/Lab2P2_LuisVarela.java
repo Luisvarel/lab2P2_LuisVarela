@@ -12,7 +12,6 @@ import javax.swing.JColorChooser;
 public class Lab2P2_LuisVarela {
 
     public static Scanner lea = new Scanner(System.in);
-    public static Scanner lea1 = new Scanner(System.in);
 
     public static void main(String[] args) {
         ArrayList<jugador> j = new ArrayList();
@@ -34,9 +33,14 @@ public class Lab2P2_LuisVarela {
                             case 1 -> {
                                 jugador ju = crear_j();
                                 j.add(ju);
+                                System.out.println("El jugador fue agregado");
                             }
                             case 2 -> {
-                                listar_j(j);
+                                if (j.size() != 0) {
+                                    listar_j(j);
+                                } else {
+                                    System.out.println("Error la cantidad de jugadores es 0");
+                                }
                             }
                             case 3 -> {
                                 if (j.size() != 0) {
@@ -45,14 +49,22 @@ public class Lab2P2_LuisVarela {
                                     do {
                                         System.out.println("Ingrese el numero del jugador");
                                         posicion = lea.nextInt();
-                                    } while (posicion <= 0 || posicion >= j.size());
+                                    } while (posicion <= 0 || posicion > j.size());
                                     String[] tempo = modificar_j();
                                     posicion--;
-                                    j.get(posicion).setNombre(tempo[0]);
+                                    if (tempo[0].length() != 0) {
+                                        j.get(posicion).setNombre(tempo[0]);
+
+                                    }
                                     int repu = Integer.parseInt(tempo[1]);
-                                    j.get(posicion).setRepu(repu);
+                                    if (repu != -1) {
+                                        j.get(posicion).setRepu(repu);
+                                    }
                                     int dinero = Integer.parseInt(tempo[2]);
-                                    j.get(posicion).setDinero(dinero);
+                                    if (dinero != -1) {
+                                        j.get(posicion).setDinero(dinero);
+
+                                    }
                                 } else {
                                     System.out.println("La cantidad de jugadores es 0");
                                 }
@@ -65,7 +77,7 @@ public class Lab2P2_LuisVarela {
                                     do {
                                         System.out.println("Ingrese el numero del jugador");
                                         posicion = lea.nextInt();
-                                    } while (posicion <= 0 || posicion >= j.size());
+                                    } while (posicion <= 0 || posicion > j.size());
                                     posicion--;
                                     j.remove(posicion);
                                 } else {
@@ -92,19 +104,31 @@ public class Lab2P2_LuisVarela {
                             case 1 -> {
                                 carro nuevo = crear_c();
                                 gc.add(nuevo);
+                                System.out.println("El carro fue agregado");
                             }
                             case 2 -> {
-                                listar_p_j(j);
+                                if (gc.size() != 0) {
+                                    listar_p_j(j);
+
+                                } else {
+                                    System.out.println("Error no hay ningun carro");
+                                }
                             }
                             case 3 -> {
-                                listar_gc(gc);
-                                int posicion = 0;
-                                do {
-                                    System.out.println("Ingrese el numero del carro");
-                                    posicion = lea.nextInt();
-                                } while (posicion <= 0 || posicion >= j.size());
-                                posicion--;
-                                gc.remove(posicion);
+                                if (gc.size() != 0) {
+                                    listar_gc(gc);
+                                    int posicion = 0;
+                                    do {
+                                        System.out.println("Ingrese el numero del carro");
+                                        posicion = lea.nextInt();
+                                    } while (posicion <= 0 || posicion >= j.size());
+                                    posicion--;
+                                    gc.remove(posicion);
+                                    System.out.println("El carro fue eliminado");
+                                } else {
+                                    System.out.println("Error no hay ningun carro");
+
+                                }
                             }
                             case 4 -> {
                                 seguir2 = false;
@@ -132,7 +156,7 @@ public class Lab2P2_LuisVarela {
                                         posicion = lea.nextInt();
                                     } while (posicion <= 0 || posicion > j.size());
                                     posicion--;
-                                    listar_gc(gc);
+                                    listar_p_j1(j, posicion);
                                     int posicion1 = 0;
                                     do {
                                         System.out.println("Ingrese el numero del carro");
@@ -158,7 +182,7 @@ public class Lab2P2_LuisVarela {
                                         posicion = lea.nextInt();
                                     } while (posicion <= 0 || posicion > j.size());
                                     posicion--;
-                                    listar_p_j(j);
+                                    listar_p_j1(j, posicion);
                                     int posicion1 = 0;
                                     do {
                                         System.out.println("Ingrese el numero del carro");
@@ -192,7 +216,7 @@ public class Lab2P2_LuisVarela {
                             posicion = lea.nextInt();
                         } while (posicion <= 0 || posicion > j.size());
                         posicion--;
-                        listar_p_j(j);
+                        listar_p_j1(j, posicion);
                         int posicion1 = 0;
                         do {
                             System.out.println("Ingrese el numero del carro");
@@ -213,6 +237,7 @@ public class Lab2P2_LuisVarela {
                             int opcion4 = lea.nextInt();
                             switch (opcion4) {
                                 case 1 -> {
+                                    System.out.println("");
                                     if (j.get(posicion).carro.get(posicion1).getMejora()[0] != 1) {
                                         if (j.get(posicion).getDinero() >= 3500) {
                                             int dinero = j.get(posicion).getDinero();
@@ -221,6 +246,9 @@ public class Lab2P2_LuisVarela {
                                             int[] temp = j.get(posicion).carro.get(posicion1).getMejora();
                                             temp[0] = 1;
                                             j.get(posicion).carro.get(posicion1).setMejora(temp);
+                                            int precio = j.get(posicion).carro.get(posicion1).getPrecio();
+                                            precio += 3500;
+                                            j.get(posicion).carro.get(posicion1).setPrecio(precio);
                                         } else {
                                             System.out.println("No tiene suficiente dinero");
                                         }
@@ -237,6 +265,9 @@ public class Lab2P2_LuisVarela {
                                             int[] temp = j.get(posicion).carro.get(posicion1).getMejora();
                                             temp[1] = 1;
                                             j.get(posicion).carro.get(posicion1).setMejora(temp);
+                                            int precio = j.get(posicion).carro.get(posicion1).getPrecio();
+                                            precio += 1800;
+                                            j.get(posicion).carro.get(posicion1).setPrecio(precio);
                                         } else {
                                             System.out.println("No tiene suficiente dinero");
                                         }
@@ -253,6 +284,9 @@ public class Lab2P2_LuisVarela {
                                             int[] temp = j.get(posicion).carro.get(posicion1).getMejora();
                                             temp[2] = 1;
                                             j.get(posicion).carro.get(posicion1).setMejora(temp);
+                                            int precio = j.get(posicion).carro.get(posicion1).getPrecio();
+                                            precio += 2000;
+                                            j.get(posicion).carro.get(posicion1).setPrecio(precio);
                                         } else {
                                             System.out.println("No tiene suficiente dinero");
                                         }
@@ -269,6 +303,9 @@ public class Lab2P2_LuisVarela {
                                             int[] temp = j.get(posicion).carro.get(posicion1).getMejora();
                                             temp[3] = 1;
                                             j.get(posicion).carro.get(posicion1).setMejora(temp);
+                                            int precio = j.get(posicion).carro.get(posicion1).getPrecio();
+                                            precio += 1500;
+                                            j.get(posicion).carro.get(posicion1).setPrecio(precio);
                                         } else {
                                             System.out.println("No tiene suficiente dinero");
                                         }
@@ -288,6 +325,9 @@ public class Lab2P2_LuisVarela {
                                                 int[] temp = j.get(posicion).carro.get(posicion1).getMejora();
                                                 temp[4] = 1;
                                                 j.get(posicion).carro.get(posicion1).setMejora(temp);
+                                                int precio = j.get(posicion).carro.get(posicion1).getPrecio();
+                                                precio += 8800;
+                                                j.get(posicion).carro.get(posicion1).setPrecio(precio);
                                             } else {
                                                 System.out.println("No tiene suficiente dinero");
                                             }
@@ -328,7 +368,7 @@ public class Lab2P2_LuisVarela {
         String nombre = "";
         do {
             System.out.println("Ingrese un nombre:");
-            nombre = lea1.nextLine();
+            nombre = lea.next();
         } while (nombre.length() == 0);
         int repu = 0;
         do {
@@ -353,8 +393,8 @@ public class Lab2P2_LuisVarela {
     public static String[] modificar_j() {
         boolean seguir = true;
         String nombre = "";
-        int repu = 0;
-        int dinero = 0;
+        int repu = -1;
+        int dinero = -1;
         while (seguir) {
             System.out.println("1.Modificar nombre");
             System.out.println("2.Modificar reputacion");
@@ -365,7 +405,7 @@ public class Lab2P2_LuisVarela {
                 case 1 -> {
                     do {
                         System.out.println("Ingrese un nombre:");
-                        nombre = lea1.nextLine();
+                        nombre = lea.next();
                     } while (nombre.length() == 0);
                 }
                 case 2 -> {
@@ -409,12 +449,12 @@ public class Lab2P2_LuisVarela {
         String marca = "";
         do {
             System.out.println("Ingrese la marca:");
-            marca = lea1.next();
+            marca = lea.next();
         } while (marca.length() == 0);
         String modelo = "";
         do {
             System.out.println("Ingrese el modelo:");
-            modelo = lea1.next();
+            modelo = lea.next();
         } while (modelo.length() == 0);
         Color color = JColorChooser.showDialog(null, "Seleccione un color", Color.green);
         int precio = 0;
@@ -443,7 +483,24 @@ public class Lab2P2_LuisVarela {
             System.out.println("Nombre: " + j.get(i).getNombre());
             if (j.get(i).carro.size() != 0) {
                 for (int k = 0; k < j.get(i).carro.size(); k++) {
+                    System.out.println("Carro " + j.get(i).getCarro().indexOf(j.get(i).carro.get(k)));
                     System.out.println(j.get(i).carro.get(k));
+                }
+            }
+        }
+    }
+
+    public static void listar_p_j1(ArrayList<jugador> j, int num) {
+        num--;
+        for (int i = 0; i < j.size(); i++) {
+            if (i == num) {
+                System.out.println("Jugador " + (j.indexOf(j.get(i)) + 1));
+                System.out.println("Nombre: " + j.get(i).getNombre());
+                if (j.get(i).carro.size() != 0) {
+                    for (int k = 0; k < j.get(i).carro.size(); k++) {
+                        System.out.println("Carro " + j.get(i).getCarro().indexOf(j.get(i).carro.get(k)));
+                        System.out.println(j.get(i).carro.get(k));
+                    }
                 }
             }
         }
