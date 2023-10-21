@@ -121,7 +121,7 @@ public class Lab2P2_LuisVarela {
                                     do {
                                         System.out.println("Ingrese el numero del carro");
                                         posicion = lea.nextInt();
-                                    } while (posicion <= 0 || posicion >= j.size());
+                                    } while (posicion <= 0 || posicion > j.size());
                                     posicion--;
                                     gc.remove(posicion);
                                     System.out.println("El carro fue eliminado");
@@ -148,7 +148,7 @@ public class Lab2P2_LuisVarela {
                         int opcion3 = lea.nextInt();
                         switch (opcion3) {
                             case 1 -> {
-                                if (j.size() != 0 || gc.size() != 0) {
+                                if (j.size() != 0 && gc.size() != 0) {
                                     listar_j(j);
                                     int posicion = 0;
                                     do {
@@ -156,7 +156,7 @@ public class Lab2P2_LuisVarela {
                                         posicion = lea.nextInt();
                                     } while (posicion <= 0 || posicion > j.size());
                                     posicion--;
-                                    listar_p_j1(j, posicion);
+                                    listar_gc(gc);
                                     int posicion1 = 0;
                                     do {
                                         System.out.println("Ingrese el numero del carro");
@@ -491,7 +491,6 @@ public class Lab2P2_LuisVarela {
     }
 
     public static void listar_p_j1(ArrayList<jugador> j, int num) {
-        num--;
         for (int i = 0; i < j.size(); i++) {
             if (i == num) {
                 System.out.println("Jugador " + (j.indexOf(j.get(i)) + 1));
